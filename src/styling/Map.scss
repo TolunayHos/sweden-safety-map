@@ -1,11 +1,7 @@
 .LeafletMap {
   background-color: red;
-  width: 70%;
-}
-
-.mapside {
-  width: 30%;
-  border-left: solid rgb(193, 193, 193) 0.5px;
+  width: 100%;
+  z-index: 0;
 }
 
 .LeafletWrapper {
