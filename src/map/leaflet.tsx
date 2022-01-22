@@ -7,6 +7,10 @@ import markerIconPng from "leaflet/dist/images/marker-icon.png";
 import { Icon } from "leaflet";
 import Mapside from "../components/Mapside";
 import Polisen from "../Apis/Polisen";
+// import CityDropdown from "../components/CityDropdown";
+import { connect, ConnectedProps, RootStateOrAny } from "react-redux";
+import citiesJson from "../data/cities.json";
+import city from "../models/city";
 
 export type Incident = {
   description: string;
@@ -16,26 +20,42 @@ export type Incident = {
   city: string;
 };
 
-const LeafletMap = () => {
+const LeafletMap = (props: any) => {
   const [position, setPosition] = useState<LatLngTuple>([59.3293, 18.0686]);
   const [incidents, setIncidents] = useState<Incident[]>([]);
+
+  console.log(props.city);
+  const cities: city[] = citiesJson.cities;
+
+  // for (let i = 0; i < cities.length; i++) {
+  //   cities[i].name === props.city ? cities[i].lat : "couldnt find";
+  //   console.log(cities[i].lat);
+  // }
+
+  cities.find((city) => city.name === `${props.city}`);
 
   // console.log(popupRender(incidentSummary));
 
   const getIncidents = async () => {
-    const response = await Polisen.get("./events", {});
+    const response = await Polisen.get("./incidents", {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+      },
+    });
 
-    console.log(response);
+    console.log(response.data);
+    const data = response.data.data;
 
     let incidentMarkers: Incident[] = [];
-    for (let i = 0; i < response.data.length; i++) {
-      const gps = response.data[i].location.gps.split(",");
+    for (let i = 0; i < data.length; i++) {
+      const gps = data[i].location.gps.split(",");
 
       const coords: LatLngTuple = [parseFloat(gps[0]), parseFloat(gps[1])];
-      const summary: string = response.data[i].summary;
-      const time: string = response.data[i].datetime;
-      const type: string = response.data[i].type;
-      const city: string = response.data[i].location.name;
+      const summary: string = data[i].summary;
+      const time: string = data[i].datetime;
+      const type: string = data[i].type;
+      const city: string = data[i].location.name;
 
       const incident: Incident = {
         description: summary,
@@ -51,19 +71,23 @@ const LeafletMap = () => {
 
   useEffect(() => {
     getIncidents();
-    navigator.geolocation.getCurrentPosition(function (position) {
-      const { latitude } = position.coords;
-      const { longitude } = position.coords;
+    const SelectedCity = cities.find((city) => city.name === `${props.city}`);
+    const coords = [SelectedCity?.lat, SelectedCity?.lng];
+    console.log(coords);
+    setPosition(coords as LatLngTuple);
+  }, [props.city]);
 
-      const coords = [latitude, longitude];
-      setPosition(coords as LatLngTuple);
-    });
-  }, []);
+  console.log(position);
 
   return (
     <div className="LeafletWrapper">
       <div className="LeafletMap">
-        <MapContainer center={position} zoom={12} scrollWheelZoom={true}>
+        <MapContainer
+          key={JSON.stringify(position)} //New instance of MapContainer created which forces render
+          center={position}
+          zoom={12}
+          scrollWheelZoom={true}
+        >
           <TileLayer
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://maps.geoapify.com/v1/tile/klokantech-basic/{z}/{x}/{y}.png?apiKey=46385d28ffd34b6c979dd82156a68bf1"
@@ -71,6 +95,7 @@ const LeafletMap = () => {
           {incidents.map((incident) => {
             return (
               <Marker
+                key={incident.time}
                 position={incident.coords}
                 icon={
                   new Icon({
@@ -87,6 +112,7 @@ const LeafletMap = () => {
               </Marker>
             );
           })}
+          {/* <ChangeMapView coords={position} /> */}
         </MapContainer>
       </div>
       <div className="mapside">
@@ -96,4 +122,9 @@ const LeafletMap = () => {
   );
 };
 
-export default LeafletMap;
+const mapStateToProps = (state: RootStateOrAny) => {
+  return {
+    city: state.citySelector,
+  };
+};
+export default connect(mapStateToProps)(LeafletMap);

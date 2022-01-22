@@ -1,0 +1,17 @@
+.DropdownWrapper {
+  z-index: 3;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  border-bottom: 2px solid rgba(65, 65, 65, 0.2);
+
+  select {
+    padding: 0.5rem;
+    border-radius: 7px;
+    border: solid 2px rgb(249, 87, 56, 0.7);
+    background-color: inherit;
+    width: 10rem;
+    cursor: pointer;
+    margin-bottom: 1rem;
+  }
+}
