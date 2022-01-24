@@ -45,7 +45,8 @@ const LeafletMap = (props: any) => {
     });
 
     console.log(response.data);
-    const data = response.data.data;
+    const data = response.data.incidents;
+    console.log(incidents);
 
     let incidentMarkers: Incident[] = [];
     for (let i = 0; i < data.length; i++) {
@@ -115,7 +116,7 @@ const LeafletMap = (props: any) => {
         </MapContainer>
       </div>
       <div className="mapside">
-        <Mapside />
+        <Mapside incidents={incidents} />
       </div>
     </div>
   );

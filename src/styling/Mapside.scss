@@ -6,9 +6,10 @@
   width: 25rem;
   z-index: 1;
   right: 0%;
-  height: 100vh;
+  min-height: 100vh;
   backdrop-filter: blur(5px);
   transition: 0.4s all ease-in;
+
   .MapsideHeader {
     display: flex;
     border-bottom: 1px solid black;
