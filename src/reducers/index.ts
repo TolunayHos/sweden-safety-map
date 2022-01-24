@@ -1,4 +1,8 @@
 import { combineReducers } from "redux";
 import selectedCityReducer from "./selectedCityReducer";
 
-export default combineReducers({ citySelector: selectedCityReducer });
+const reducers = combineReducers({ citySelector: selectedCityReducer });
+
+export default reducers;
+
+export type State = ReturnType<typeof reducers>;

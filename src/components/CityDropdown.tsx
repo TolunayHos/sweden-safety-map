@@ -16,11 +16,8 @@ const CityDropdown = (props: ReduxProps) => {
   const selectCity = props.selectCity;
 
   const onSelectedCity = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    console.log(e);
     selectCity(e.target.value);
   };
-
-  console.log(props);
 
   return (
     <div className="DropdownWrapper">

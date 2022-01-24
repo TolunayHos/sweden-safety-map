@@ -67,6 +67,7 @@ const LeafletMap = (props: any) => {
       incidentMarkers.push(incident);
     }
     setIncidents(incidentMarkers);
+    console.log(incidentMarkers);
   };
 
   useEffect(() => {
@@ -76,8 +77,6 @@ const LeafletMap = (props: any) => {
     console.log(coords);
     setPosition(coords as LatLngTuple);
   }, [props.city]);
-
-  console.log(position);
 
   return (
     <div className="LeafletWrapper">

@@ -1,7 +1,11 @@
-import { Action } from "redux";
-import city from "../models/city";
+import City from "../models/city";
 
-export default (state = "Stockholm", action: any) => {
+type Action = {
+  type: string;
+  payload: City;
+};
+
+export default (state = "Stockholm", action: Action) => {
   switch (action.type) {
     case "FETCH_CITY":
       return action.payload;
