@@ -1,0 +1,4 @@
+export enum ActionType {
+  FETCH_INCIDENTS = "FETCH_INCIDENTS",
+  FETCH_CITY = "FETCH_CITY",
+}

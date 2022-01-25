@@ -44,7 +44,7 @@ const Mapside = (props: any) => {
           {/* <CityDropdown /> */}
 
           {collapse === false ? <CityDropdown /> : ""}
-          <h3>Incidents summary for {props.city} </h3>
+          <h3>Incidents summary for {props.city.name} </h3>
           <h3>Top 5 incident reporting cities </h3>
           <h3>Number of incidents per 100.000 people</h3>
           <h3>Last reported incidents</h3>
@@ -68,9 +68,9 @@ const Mapside = (props: any) => {
           <h3>
             This page is an interactive map marking all criminal incidents that
             took place in all over Sweden as of January 2022. The data comes
-            from Polissen and is batched and modified to serve the purpose in my
-            own backend server. The map is updated and populated with new
-            incidents everyday at 18:00. <br></br>
+            from Polissen and is batched and modified to serve the purpose in a
+            backend server. The map is updated and populated with new incidents
+            everyday at 18:00. <br></br>
             <br></br> The primary purpose of this application is to help
             non-local people assess the safety of the neighbourhoods bofore
             purchasing a house & moving in.

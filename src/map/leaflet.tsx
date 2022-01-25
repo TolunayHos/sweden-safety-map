@@ -1,4 +1,4 @@
-import { LatLngExpression, LatLngTuple } from "leaflet";
+import { LatLngTuple } from "leaflet";
 import { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "../styling/Map.scss";
@@ -6,11 +6,9 @@ import "leaflet/dist/leaflet.css";
 import markerIconPng from "leaflet/dist/images/marker-icon.png";
 import { Icon } from "leaflet";
 import Mapside from "../components/Mapside";
-import Polisen from "../Apis/Polisen";
-// import CityDropdown from "../components/CityDropdown";
 import { connect, ConnectedProps, RootStateOrAny } from "react-redux";
-import citiesJson from "../data/cities.json";
-import city from "../models/city";
+import { getIncidents } from "../state/actions/index";
+import { Grid } from "react-loader-spinner";
 
 export type Incident = {
   description: string;
@@ -24,60 +22,16 @@ const LeafletMap = (props: any) => {
   const [position, setPosition] = useState<LatLngTuple>([59.3293, 18.0686]);
   const [incidents, setIncidents] = useState<Incident[]>([]);
 
-  console.log(props.city);
-  const cities: city[] = citiesJson.cities;
-
-  // for (let i = 0; i < cities.length; i++) {
-  //   cities[i].name === props.city ? cities[i].lat : "couldnt find";
-  //   console.log(cities[i].lat);
-  // }
-
-  cities.find((city) => city.name === `${props.city}`);
-
-  // console.log(popupRender(incidentSummary));
-
-  const getIncidents = async () => {
-    const response = await Polisen.get("./incidents", {
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
-      },
-    });
-
-    console.log(response.data);
-    const data = response.data.incidents;
-    console.log(incidents);
-
-    let incidentMarkers: Incident[] = [];
-    for (let i = 0; i < data.length; i++) {
-      const gps = data[i].location.gps.split(",");
-
-      const coords: LatLngTuple = [parseFloat(gps[0]), parseFloat(gps[1])];
-      const summary: string = data[i].summary;
-      const time: string = data[i].datetime;
-      const type: string = data[i].type;
-      const city: string = data[i].location.name;
-
-      const incident: Incident = {
-        description: summary,
-        coords: coords,
-        time: time,
-        type: type,
-        city: city,
-      };
-      incidentMarkers.push(incident);
-    }
-    setIncidents(incidentMarkers);
-    console.log(incidentMarkers);
-  };
+  const getIncidents = props.getIncidents;
+  console.log(incidents.length);
 
   useEffect(() => {
     getIncidents();
-    const SelectedCity = cities.find((city) => city.name === `${props.city}`);
-    const coords = [SelectedCity?.lat, SelectedCity?.lng];
-    console.log(coords);
-    setPosition(coords as LatLngTuple);
-  }, [props.city]);
+    setIncidents(props.incidents);
+
+    const selectedCity = props.city;
+    setPosition([selectedCity?.lat, selectedCity?.lng] as LatLngTuple);
+  }, [props.incidents.length, props.city]);
 
   return (
     <div className="LeafletWrapper">
@@ -95,7 +49,7 @@ const LeafletMap = (props: any) => {
           {incidents.map((incident) => {
             return (
               <Marker
-                key={incident.time}
+                key={Math.random()}
                 position={incident.coords}
                 icon={
                   new Icon({
@@ -125,6 +79,8 @@ const LeafletMap = (props: any) => {
 const mapStateToProps = (state: RootStateOrAny) => {
   return {
     city: state.citySelector,
+    incidents: state.incidentsList,
   };
 };
-export default connect(mapStateToProps)(LeafletMap);
+
+export default connect(mapStateToProps, { getIncidents })(LeafletMap);

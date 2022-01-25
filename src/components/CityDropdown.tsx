@@ -3,7 +3,7 @@ import "../styling/CityDropdown.scss";
 import citiesJson from "../data/cities.json";
 import city from "../models/city";
 import { connect, ConnectedProps, RootStateOrAny } from "react-redux";
-import { selectCity } from "../actions";
+import { selectCity } from "../state/actions";
 import { PropsWithChildren, PropsWithoutRef } from "react";
 import City from "../models/city";
 import Polisen from "../Apis/Polisen";
@@ -17,7 +17,7 @@ const CityDropdown = (props: ReduxProps) => {
   const selectCity = props.selectCity;
 
   const onSelectedCity = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    selectCity(e.target.value);
+    selectCity(cities.find((city) => city.name === e.target.value));
   };
 
   return (
