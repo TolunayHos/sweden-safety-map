@@ -79,7 +79,7 @@ const LeafletMap = (props: any) => {
 const mapStateToProps = (state: RootStateOrAny) => {
   return {
     city: state.citySelector,
-    incidents: state.incidentsList,
+    incidents: state.incidentsList.incidents,
   };
 };
 

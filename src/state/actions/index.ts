@@ -5,10 +5,19 @@ import { FetchIncidents } from "../reducers/incidentsReducer";
 import Polisen from "../../Apis/Polisen";
 import { Incident } from "../../map/leaflet";
 import { LatLngTuple } from "leaflet";
+import IncidentSum from "../../models/incidentSum";
+import Summary from "../../models/Summary";
 
 export const selectCity = (city: City) => {
   return {
     type: ActionType.FETCH_CITY,
+    payload: city,
+  };
+};
+
+export const getCityIncidentSummary = (city: string) => {
+  return {
+    type: ActionType.GET_CITY_SUMMARY,
     payload: city,
   };
 };
@@ -44,9 +53,31 @@ export const getIncidents = () => {
           incidentMarkers.push(incident);
         }
 
+        const dataSummary = response.data.citySummary;
+        let summaryCity: Summary[] = [];
+
+        for (const city in dataSummary) {
+          if (Object.prototype.hasOwnProperty.call(dataSummary, city)) {
+            const citySummary = dataSummary[city];
+            const cityIncidentSummary: Summary = {
+              city: city,
+              lastReported: citySummary.lastReported,
+              safetyIndex: citySummary.safetyIndex,
+              incidentsPer: citySummary.incidentsPer,
+              incidentSum: citySummary.incidentSum,
+            };
+            summaryCity.push(cityIncidentSummary);
+          }
+        }
+
+        const incidentSum: IncidentSum = {
+          incidents: incidentMarkers,
+          summary: summaryCity,
+        };
+
         dispatch({
           type: ActionType.FETCH_INCIDENTS,
-          payload: incidentMarkers,
+          payload: incidentSum,
         });
       })
       .catch((err) => console.log(err));
