@@ -33,6 +33,17 @@ const LeafletMap = (props: any) => {
     setPosition([selectedCity?.lat, selectedCity?.lng] as LatLngTuple);
   }, [props.incidents.length, props.city]);
 
+  // const preventOverlap = (position: LatLngTuple) => {
+  //   const random = Math.random();
+  //   console.log(random);
+  //   const lat = position[0] - random;
+  //   const lng = position[1] + random;
+  //   const newPosition = [lat, lng];
+  //   return newPosition as LatLngTuple;
+  // };
+
+  // console.log(preventOverlap([59.3293, 18.0686]));
+
   return (
     <div className="LeafletWrapper">
       <div className="LeafletMap">

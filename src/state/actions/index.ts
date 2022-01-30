@@ -15,12 +15,12 @@ export const selectCity = (city: City) => {
   };
 };
 
-export const getCityIncidentSummary = (city: string) => {
-  return {
-    type: ActionType.GET_CITY_SUMMARY,
-    payload: city,
-  };
-};
+// export const getCityIncidentSummary = (city: string) => {
+//   return {
+//     type: ActionType.GET_CITY_SUMMARY,
+//     payload: city,
+//   };
+// };
 
 export const getIncidents = () => {
   return async (dispatch: Dispatch<FetchIncidents>) => {
@@ -59,7 +59,7 @@ export const getIncidents = () => {
         for (const city in dataSummary) {
           if (Object.prototype.hasOwnProperty.call(dataSummary, city)) {
             const citySummary = dataSummary[city];
-            const cityIncidentSummary: Summary = {
+            const cityIncidentSummary: any = {
               city: city,
               lastReported: citySummary.lastReported,
               safetyIndex: citySummary.safetyIndex,

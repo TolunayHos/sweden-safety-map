@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../styling/Mapside.scss";
 import CityDropdown from "./CityDropdown";
 import { connect, ConnectedProps, RootStateOrAny } from "react-redux";
-import { getCityIncidentSummary } from "../state/actions/index";
+// import { getCityIncidentSummary } from "../state/actions/index";
+import Summary from "../models/Summary";
 
 const Mapside = (props: any) => {
   const [collapse, setCollapse] = useState(false);
   const [section, setSection] = useState("Overview");
+  const [details, setDetails] = useState<Summary[]>([]);
 
   const handleCollapse = () => {
     collapse === false ? setCollapse(true) : setCollapse(false);
@@ -16,9 +18,25 @@ const Mapside = (props: any) => {
     section === x && setSection(y);
   };
 
-  const getCityIncidentSummary = props.getCityIncidentSummary;
+  const { summary } = props;
 
-  // const stockholmSummary = getCityIncidentSummary(props.city.name);
+  const getDetailsOnCity = (city: string) => {
+    return summary.filter(
+      (incident: any) => incident.city === city && incident
+    );
+  };
+
+  useEffect(() => {
+    if (summary !== undefined && summary.length > 0) {
+      console.log("summary is not undefined and length is bigger than 0!");
+      setDetails(getDetailsOnCity(props.city.name.toLowerCase()));
+      console.log(details);
+    } else if (details.length < 0) {
+      console.log("We got a serious problem");
+    }
+  }, [props.city.name, summary.length]);
+
+  console.log(details);
 
   return (
     <div
@@ -48,11 +66,44 @@ const Mapside = (props: any) => {
         <div className="container">
           <h3>Choose a county:</h3>
           {collapse === false ? <CityDropdown /> : ""}
-          <h3> Top 5 common crimes in {props.city.name} </h3>
+          <h3> Common incidents in {props.city.name} county </h3>
+          {details.length === 0
+            ? "Loading"
+            : details[0].incidentSum.map((incident, i) => (
+                <div className="commoncrime">
+                  <h4>
+                    {" "}
+                    {/* <i className="exclamation circle icon"></i>{" "} */}
+                    {i + 1}-{incident.incidentType} (
+                    {incident.numberOfIncidents}){" "}
+                  </h4>
+                </div>
+              ))}
+
           <h3>Top 5 incident reporting cities </h3>
           <h3>Number of incidents per 100.000 people</h3>
+          {details.length === 0 ? (
+            "Loading"
+          ) : (
+            <div className="PerPeople">
+              <h4>{details[0].incidentsPer}</h4>
+            </div>
+          )}
           <h3>Last reported incidents</h3>
-          <h3>Safety rating</h3>
+          {details.length === 0
+            ? "Loading"
+            : details[0].lastReported
+                .slice(0)
+                .reverse()
+                .map((report, i) => (
+                  <div className="LastReported">
+                    <h5 className="LastReportedDescription">
+                      {" "}
+                      <i className="exclamation circle icon"></i> {report.name}
+                    </h5>
+                    <p>{report.summary}</p>
+                  </div>
+                ))}
           <div>
             <div className="toggleInfo" onClick={handleCollapse}>
               <div className="toggleArea">
@@ -99,7 +150,7 @@ const Mapside = (props: any) => {
             <br></br>
             <br></br>
             The application is in constant development process and new features
-            will be implemented in accordance with the community's wishes.
+            will be implemented in accordance with the user wishes.
           </p>
         </div>
       )}
@@ -110,6 +161,7 @@ const Mapside = (props: any) => {
 const mapStateToProps = (state: RootStateOrAny) => {
   return {
     city: state.citySelector,
+    summary: state.incidentsList.summary,
   };
 };
-export default connect(mapStateToProps, { getCityIncidentSummary })(Mapside);
+export default connect(mapStateToProps)(Mapside);
