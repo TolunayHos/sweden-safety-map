@@ -4,6 +4,8 @@ import CityDropdown from "./CityDropdown";
 import { connect, ConnectedProps, RootStateOrAny } from "react-redux";
 // import { getCityIncidentSummary } from "../state/actions/index";
 import Summary from "../models/Summary";
+import About from "./About";
+import { Circles, Rings } from "react-loader-spinner";
 
 const Mapside = (props: any) => {
   const [collapse, setCollapse] = useState(false);
@@ -59,7 +61,9 @@ const Mapside = (props: any) => {
           }
           onClick={() => handleSectionChange("Overview", "About")}
         >
-          <h2>About</h2>
+          <h2>
+            About <i className="exclamation triangle icon "></i>
+          </h2>
         </div>
       </div>
       {section === "Overview" ? (
@@ -67,43 +71,64 @@ const Mapside = (props: any) => {
           <h3>Choose a county:</h3>
           {collapse === false ? <CityDropdown /> : ""}
           <h3> Common incidents in {props.city.name} county </h3>
-          {details.length === 0
-            ? "Loading"
-            : details[0].incidentSum.map((incident, i) => (
-                <div className="commoncrime">
-                  <h4>
-                    {" "}
-                    {/* <i className="exclamation circle icon"></i>{" "} */}
-                    {i + 1}-{incident.incidentType} (
-                    {incident.numberOfIncidents}){" "}
-                  </h4>
-                </div>
-              ))}
+          {details.length === 0 ? (
+            <Rings color="#f95738" height={40} width={40} />
+          ) : (
+            details[0].incidentSum.map((incident, i) => (
+              <div className="numberedlist">
+                <h4>
+                  {" "}
+                  {/* <i className="exclamation circle icon"></i>{" "} */}
+                  {i + 1}-{incident.incidentType} ({incident.numberOfIncidents}){" "}
+                </h4>
+              </div>
+            ))
+          )}
 
           <h3>Top 5 incident reporting cities </h3>
+
+          {details.length === 0 ? (
+            <Rings color="#f95738" height={40} width={40} />
+          ) : (
+            details[0].topReportingCities.slice(0, 5).map((incident, i) => (
+              <div className="numberedlist">
+                <h4>
+                  {" "}
+                  {/* <i className="exclamation circle icon"></i>{" "} */}
+                  {i + 1}-{incident.city} ({incident.numberOfIncidents}){" "}
+                </h4>
+              </div>
+            ))
+          )}
+          {/* <button className="moreinfo">
+              More on this.. <i className="arrow circle right icon small "></i>
+            </button> */}
+
           <h3>Number of incidents per 100.000 people</h3>
           {details.length === 0 ? (
-            "Loading"
+            <Rings color="#f95738" height={40} width={40} />
           ) : (
             <div className="PerPeople">
               <h4>{details[0].incidentsPer}</h4>
             </div>
           )}
           <h3>Last reported incidents</h3>
-          {details.length === 0
-            ? "Loading"
-            : details[0].lastReported
-                .slice(0)
-                .reverse()
-                .map((report, i) => (
-                  <div className="LastReported">
-                    <h5 className="LastReportedDescription">
-                      {" "}
-                      <i className="exclamation circle icon"></i> {report.name}
-                    </h5>
-                    <p>{report.summary}</p>
-                  </div>
-                ))}
+          {details.length === 0 ? (
+            <Rings color="#f95738" height={40} width={40} />
+          ) : (
+            details[0].lastReported
+              .slice(0)
+              .reverse()
+              .map((report, i) => (
+                <div className="LastReported">
+                  <h5 className="LastReportedDescription">
+                    {" "}
+                    <i className="exclamation circle icon"></i> {report.name}
+                  </h5>
+                  <p>{report.summary}</p>
+                </div>
+              ))
+          )}
           <div>
             <div className="toggleInfo" onClick={handleCollapse}>
               <div className="toggleArea">
@@ -131,27 +156,7 @@ const Mapside = (props: any) => {
               ></i>
             </div>
           </div>
-          <p>
-            This page is an interactive map marking all criminal incidents that
-            took place in all over Sweden as of January 2022. The data comes
-            from Polissen and is batched and modified to serve the purpose in a
-            backend server. The map is updated and populated with new incidents
-            everyday at 18:00. <br></br>
-            <br></br> The primary purpose of this application is to help
-            non-local people assess the safety of the neighbourhoods bofore
-            purchasing a house & moving in.
-            <br></br>
-            <br></br>
-            It is founded, developed and being maintained by Tolunay Hos, an
-            entreprenuer aspiring to be a front-end developer. Should you have
-            questions or ideas for improvement, please do contact me from here.
-            If you seek a junior front-end developer in your organization, learn
-            more about me from here.
-            <br></br>
-            <br></br>
-            The application is in constant development process and new features
-            will be implemented in accordance with the user wishes.
-          </p>
+          <About />
         </div>
       )}
     </div>

@@ -8,7 +8,7 @@ import { Icon } from "leaflet";
 import Mapside from "../components/Mapside";
 import { connect, ConnectedProps, RootStateOrAny } from "react-redux";
 import { getIncidents } from "../state/actions/index";
-import { Grid } from "react-loader-spinner";
+import LeafletProps from "../models/LeafletProps";
 
 export type Incident = {
   description: string;
@@ -22,6 +22,8 @@ const LeafletMap = (props: any) => {
   const [position, setPosition] = useState<LatLngTuple>([59.3293, 18.0686]);
   const [incidents, setIncidents] = useState<Incident[]>([]);
 
+  console.log(props);
+
   const getIncidents = props.getIncidents;
   console.log(incidents.length);
 
@@ -33,16 +35,24 @@ const LeafletMap = (props: any) => {
     setPosition([selectedCity?.lat, selectedCity?.lng] as LatLngTuple);
   }, [props.incidents.length, props.city]);
 
-  // const preventOverlap = (position: LatLngTuple) => {
-  //   const random = Math.random();
-  //   console.log(random);
-  //   const lat = position[0] - random;
-  //   const lng = position[1] + random;
-  //   const newPosition = [lat, lng];
-  //   return newPosition as LatLngTuple;
+  // const preventOverlapLat = (position: number, position) => {
+  //   const randomLat = Math.random() / 160;
+
+  //   const newLat = position + randomLat;
+  //   return newLat;
   // };
 
-  // console.log(preventOverlap([59.3293, 18.0686]));
+  const preventOverlap = (position: LatLngTuple) => {
+    const randomLat = Math.random() / 160;
+    const randomLng = Math.random() / 100;
+
+    const lat = position[0] + randomLat;
+    const lng = position[1] - randomLng;
+    const newPosition = [lat, lng];
+    return newPosition as LatLngTuple;
+  };
+
+  console.log(preventOverlap([59.3293, 18.0686]));
 
   return (
     <div className="LeafletWrapper">
@@ -61,7 +71,7 @@ const LeafletMap = (props: any) => {
             return (
               <Marker
                 key={Math.random()}
-                position={incident.coords}
+                position={preventOverlap(incident.coords)}
                 icon={
                   new Icon({
                     iconUrl: markerIconPng,
@@ -71,8 +81,12 @@ const LeafletMap = (props: any) => {
                 }
               >
                 <Popup>
-                  <h4>{incident.time?.substring(0, 19)} </h4> <br></br>{" "}
-                  {incident.description}
+                  <h4>
+                    {incident.city}
+                    <br></br>
+                    {incident.time?.substring(0, 19)}{" "}
+                  </h4>{" "}
+                  <br></br> {incident.description}
                 </Popup>
               </Marker>
             );

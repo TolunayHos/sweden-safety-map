@@ -1,3 +1,5 @@
+@import "../styling/mixins.scss";
+
 .LeafletMap {
   background-color: red;
   width: 100%;
@@ -11,4 +13,7 @@
 .leaflet-container {
   width: 100%;
   height: 100vh;
+  @include for-small-phone {
+    height: 130vh;
+  }
 }

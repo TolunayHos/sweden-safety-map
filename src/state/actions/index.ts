@@ -59,8 +59,9 @@ export const getIncidents = () => {
         for (const city in dataSummary) {
           if (Object.prototype.hasOwnProperty.call(dataSummary, city)) {
             const citySummary = dataSummary[city];
-            const cityIncidentSummary: any = {
+            const cityIncidentSummary: Summary = {
               city: city,
+              topReportingCities: citySummary.topReportingCities,
               lastReported: citySummary.lastReported,
               safetyIndex: citySummary.safetyIndex,
               incidentsPer: citySummary.incidentsPer,

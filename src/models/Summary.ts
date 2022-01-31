@@ -7,8 +7,14 @@ interface lastReported {
   summary: string;
 }
 
+interface topReportingCities {
+  city: string;
+  numberOfIncidents: number;
+}
+
 interface Summary {
   city: string;
+  topReportingCities: topReportingCities[];
   lastReported: lastReported[];
   safetyIndex: number;
   incidentsPer: number;
