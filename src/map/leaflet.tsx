@@ -30,7 +30,9 @@ const LeafletMap = (props: any) => {
   useEffect(() => {
     getIncidents();
     setIncidents(props.incidents);
+  }, [props.incidents.length]);
 
+  useEffect(() => {
     const selectedCity = props.city;
     setPosition([selectedCity?.lat, selectedCity?.lng] as LatLngTuple);
   }, [props.incidents.length, props.city]);
