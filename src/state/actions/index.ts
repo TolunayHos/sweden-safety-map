@@ -15,13 +15,6 @@ export const selectCity = (city: City) => {
   };
 };
 
-// export const getCityIncidentSummary = (city: string) => {
-//   return {
-//     type: ActionType.GET_CITY_SUMMARY,
-//     payload: city,
-//   };
-// };
-
 export const getIncidents = () => {
   return async (dispatch: Dispatch<FetchIncidents>) => {
     return await Polisen.get("./incidents", {

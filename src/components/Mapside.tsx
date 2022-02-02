@@ -78,14 +78,13 @@ const Mapside = (props: any) => {
               <div className="numberedlist">
                 <h4>
                   {" "}
-                  {/* <i className="exclamation circle icon"></i>{" "} */}
                   {i + 1}-{incident.incidentType} ({incident.numberOfIncidents}){" "}
                 </h4>
               </div>
             ))
           )}
 
-          <h3>Top 5 incident reporting cities </h3>
+          <h3>Top 5 incident reporting municipalities </h3>
 
           {details.length === 0 ? (
             <Rings color="#f95738" height={40} width={40} />
@@ -94,15 +93,11 @@ const Mapside = (props: any) => {
               <div className="numberedlist">
                 <h4>
                   {" "}
-                  {/* <i className="exclamation circle icon"></i>{" "} */}
                   {i + 1}-{incident.city} ({incident.numberOfIncidents}){" "}
                 </h4>
               </div>
             ))
           )}
-          {/* <button className="moreinfo">
-              More on this.. <i className="arrow circle right icon small "></i>
-            </button> */}
 
           <h3>Number of incidents per 100.000 people</h3>
           {details.length === 0 ? (

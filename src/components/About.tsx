@@ -15,7 +15,7 @@ const About = () => {
           coordinate on each municipal area for every incident occured in that
           municipal area. The reason why you see them scattered despite the same
           reported coordinates is because I make ∼0.10% change on reported
-          latitude and longitude toward different directions to prevent
+          latitude and longitude towards different directions to prevent
           overlapping on the map. This is also the reason why markers are prone
           to cluster in a narrow circle.
         </span>

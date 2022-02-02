@@ -67,6 +67,7 @@ const LeafletMap = (props: any) => {
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://maps.geoapify.com/v1/tile/klokantech-basic/{z}/{x}/{y}.png?apiKey=46385d28ffd34b6c979dd82156a68bf1"
           />
+
           {incidents.map((incident) => {
             return (
               <Marker
