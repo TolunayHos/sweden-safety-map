@@ -6,7 +6,6 @@ import { connect, ConnectedProps, RootStateOrAny } from "react-redux";
 import { selectCity } from "../state/actions";
 import { PropsWithChildren, PropsWithoutRef } from "react";
 import City from "../models/city";
-import Polisen from "../Apis/Polisen";
 
 interface ReduxProps {
   selectCity: any;

@@ -1,16 +1,20 @@
 import { useEffect, useState } from "react";
 import "../styling/Mapside.scss";
 import CityDropdown from "./CityDropdown";
-import { connect, ConnectedProps, RootStateOrAny } from "react-redux";
-// import { getCityIncidentSummary } from "../state/actions/index";
 import Summary from "../models/Summary";
 import About from "./About";
 import { Circles, Rings } from "react-loader-spinner";
+import { useTypedSelector } from "../hooks/useTypedSelector";
 
 const Mapside = (props: any) => {
   const [collapse, setCollapse] = useState(false);
   const [section, setSection] = useState("Overview");
   const [details, setDetails] = useState<Summary[]>([]);
+
+  const city = useTypedSelector((state) => state.citySelector);
+  const incidentsSumRedux = useTypedSelector(
+    (state) => state.incidentsList.summary
+  );
 
   const handleCollapse = () => {
     collapse === false ? setCollapse(true) : setCollapse(false);
@@ -20,25 +24,18 @@ const Mapside = (props: any) => {
     section === x && setSection(y);
   };
 
-  const { summary } = props;
-
   const getDetailsOnCity = (city: string) => {
-    return summary.filter(
+    return incidentsSumRedux.filter(
       (incident: any) => incident.city === city && incident
     );
   };
 
   useEffect(() => {
-    if (summary !== undefined && summary.length > 0) {
-      console.log("summary is not undefined and length is bigger than 0!");
-      setDetails(getDetailsOnCity(props.city.name.toLowerCase()));
-      console.log(details);
+    if (incidentsSumRedux !== undefined && incidentsSumRedux.length > 0) {
+      setDetails(getDetailsOnCity(city.name.toLowerCase()));
     } else if (details.length < 0) {
-      console.log("We got a serious problem");
     }
-  }, [props.city.name, summary.length]);
-
-  console.log(details);
+  }, [city.name, incidentsSumRedux.length]);
 
   return (
     <div
@@ -70,7 +67,7 @@ const Mapside = (props: any) => {
         <div className="container">
           <h3>Choose a county:</h3>
           {collapse === false ? <CityDropdown /> : ""}
-          <h3> Common incidents in {props.city.name} county </h3>
+          <h3> Common incidents in {city.name} county </h3>
           {details.length === 0 ? (
             <Rings color="#f95738" height={40} width={40} />
           ) : (
@@ -158,10 +155,4 @@ const Mapside = (props: any) => {
   );
 };
 
-const mapStateToProps = (state: RootStateOrAny) => {
-  return {
-    city: state.citySelector,
-    summary: state.incidentsList.summary,
-  };
-};
-export default connect(mapStateToProps)(Mapside);
+export default Mapside;

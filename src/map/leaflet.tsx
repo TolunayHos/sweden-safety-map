@@ -6,9 +6,8 @@ import "leaflet/dist/leaflet.css";
 import markerIconPng from "leaflet/dist/images/marker-icon.png";
 import { Icon } from "leaflet";
 import Mapside from "../components/Mapside";
-import { connect, ConnectedProps, RootStateOrAny } from "react-redux";
-import { getIncidents } from "../state/actions/index";
-import LeafletProps from "../models/LeafletProps";
+import { useActions } from "../hooks/useActions";
+import { useTypedSelector } from "../hooks/useTypedSelector";
 
 export type Incident = {
   description: string;
@@ -18,31 +17,24 @@ export type Incident = {
   city: string;
 };
 
-const LeafletMap = (props: any) => {
+const LeafletMap: React.FC = () => {
   const [position, setPosition] = useState<LatLngTuple>([59.3293, 18.0686]);
   const [incidents, setIncidents] = useState<Incident[]>([]);
-
-  console.log(props);
-
-  const getIncidents = props.getIncidents;
-  console.log(incidents.length);
+  const city = useTypedSelector((state) => state.citySelector);
+  const incidentsRedux = useTypedSelector(
+    (state) => state.incidentsList.incidents
+  );
+  const { getIncidents } = useActions();
 
   useEffect(() => {
     getIncidents();
-    setIncidents(props.incidents);
-  }, [props.incidents.length]);
+    setIncidents(incidentsRedux);
+  }, [incidentsRedux.length]);
 
   useEffect(() => {
-    const selectedCity = props.city;
+    const selectedCity = city;
     setPosition([selectedCity?.lat, selectedCity?.lng] as LatLngTuple);
-  }, [props.incidents.length, props.city]);
-
-  // const preventOverlapLat = (position: number, position) => {
-  //   const randomLat = Math.random() / 160;
-
-  //   const newLat = position + randomLat;
-  //   return newLat;
-  // };
+  }, [incidentsRedux.length, city]);
 
   const preventOverlap = (position: LatLngTuple) => {
     const randomLat = Math.random() / 160;
@@ -53,8 +45,6 @@ const LeafletMap = (props: any) => {
     const newPosition = [lat, lng];
     return newPosition as LatLngTuple;
   };
-
-  console.log(preventOverlap([59.3293, 18.0686]));
 
   return (
     <div className="LeafletWrapper">
@@ -94,7 +84,6 @@ const LeafletMap = (props: any) => {
               </Marker>
             );
           })}
-          {/* <ChangeMapView coords={position} /> */}
         </MapContainer>
       </div>
       <div className="mapside">
@@ -104,11 +93,4 @@ const LeafletMap = (props: any) => {
   );
 };
 
-const mapStateToProps = (state: RootStateOrAny) => {
-  return {
-    city: state.citySelector,
-    incidents: state.incidentsList.incidents,
-  };
-};
-
-export default connect(mapStateToProps, { getIncidents })(LeafletMap);
+export default LeafletMap;

@@ -30,13 +30,10 @@ export interface GetCityIncidentSummary {
 export default (
   state: IncidentSum = initState,
   action: FetchIncidents | GetCityIncidentSummary
-): IncidentSum | Summary => {
+): IncidentSum => {
   switch (action.type) {
     case ActionType.FETCH_INCIDENTS:
       return action.payload;
-    // case ActionType.GET_CITY_SUMMARY:
-    //   console.log(state.summary);
-    //   return state.summary.filter((val) => val.city === action.payload)[0];
     default:
       return state;
   }

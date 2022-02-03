@@ -2,7 +2,7 @@ import City from "../../models/city";
 import { ActionType } from "../action-types";
 import { Action, Dispatch } from "redux";
 import { FetchIncidents } from "../reducers/incidentsReducer";
-import Polisen from "../../Apis/Polisen";
+import NodeServer from "../../Apis/NodeServer";
 import { Incident } from "../../map/leaflet";
 import { LatLngTuple } from "leaflet";
 import IncidentSum from "../../models/incidentSum";
@@ -17,7 +17,7 @@ export const selectCity = (city: City) => {
 
 export const getIncidents = () => {
   return async (dispatch: Dispatch<FetchIncidents>) => {
-    return await Polisen.get("./incidents", {
+    return await NodeServer.get("./incidents", {
       headers: {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
