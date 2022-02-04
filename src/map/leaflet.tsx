@@ -87,7 +87,7 @@ const LeafletMap: React.FC = () => {
         </MapContainer>
       </div>
       <div className="mapside">
-        <Mapside incidents={incidents} />
+        <Mapside />
       </div>
     </div>
   );

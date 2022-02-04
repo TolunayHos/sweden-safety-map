@@ -6,7 +6,7 @@ import About from "./About";
 import { Circles, Rings } from "react-loader-spinner";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 
-const Mapside = (props: any) => {
+const Mapside = () => {
   const [collapse, setCollapse] = useState(false);
   const [section, setSection] = useState("Overview");
   const [details, setDetails] = useState<Summary[]>([]);
