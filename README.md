@@ -10,9 +10,9 @@ export default axios.create({
   baseURL: "https://sleepy-thicket-06800.herokuapp.com",
 });
 ```
+If you are a fellow dev and want to make use of my API, please let me know beforehand.
 
-Please leaf through the backend code as it contains important fundamental logic for the county summaries and incident cherry-picking. (linktobackendsourcecode)
-
+Please leaf through the [Backend Code](https://github.com/TolunayHos/sweden-safety-backend) as it contains important fundamental logic for the county summaries and incident cherry-picking.
  
  The front-end is built using React and Typescript. Leaflet library is used for map visualisation. Redux (Thunk) is used for state management where data is wired up to Map components using a custom hook.
 
@@ -52,7 +52,7 @@ It's important to note that Marker locations do not precisely show where the inc
   
   ```
   
-  GetIncidents action is called to populate the incidentsList state in the Map.tsx
+  GetIncidents action is called with a custom hook and is used to populate the incidentsList state in the Map.tsx which gives us the incident time, description and location used in the marker.
   
   ```javascript
    const { getIncidents } = useActions();
@@ -63,7 +63,7 @@ It's important to note that Marker locations do not precisely show where the inc
   }, [incidentsRedux.length]);
   ```
   
-  GetIncidents action also returns (incident) summary which is used in CountyStats.tsx
+  GetIncidents action also populates (incident) summary state which is used in CountyStats.tsx to render stats.
 
  ```javascript
  const incidentsSumRedux = useTypedSelector(
@@ -71,7 +71,7 @@ It's important to note that Marker locations do not precisely show where the inc
   );
  ```
 
-The (incident) summary matches with the selected county
+The code below is responsible for matching the (incident) summary with the selected county:
 
 ```javascript
  const getDetailsOnCity = (city: string) => {
@@ -80,6 +80,7 @@ The (incident) summary matches with the selected county
     );
   };
   ```
+  
 
 
   
