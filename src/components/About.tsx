@@ -2,11 +2,9 @@ const About = () => {
   return (
     <div>
       <p>
-        This page is an interactive map marking all criminal incidents that took
-        place in all over Sweden as of January 2022. The data comes from
-        Polissen and is batched and modified to be more meaningful in a backend
-        server. The map is updated and populated with new incidents everyday at
-        18:00. <br></br>
+        This is an interactive map marking all criminal incidents that took
+        place in all over Sweden as of January 2022. The map is updated with new
+        incidents everyday at 6 pm. <br></br>
         <br></br>
         <span className="exclamation">
           <i className="exclamation triangle icon  "></i>
