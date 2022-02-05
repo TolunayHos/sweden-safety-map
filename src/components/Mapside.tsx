@@ -1,16 +1,12 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "../styling/Mapside.scss";
 import CityDropdown from "./CityDropdown";
-import Summary from "../models/Summary";
 import About from "./About";
-import { Circles, Rings } from "react-loader-spinner";
-import { useTypedSelector } from "../hooks/useTypedSelector";
 import CountyStats from "./CountyStats";
 
 const Mapside = () => {
   const [collapse, setCollapse] = useState(false);
   const [section, setSection] = useState("Overview");
-  const [details, setDetails] = useState<Summary[]>([]);
 
   const handleCollapse = () => {
     collapse === false ? setCollapse(true) : setCollapse(false);

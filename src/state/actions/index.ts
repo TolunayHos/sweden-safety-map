@@ -8,7 +8,7 @@ import { LatLngTuple } from "leaflet";
 import IncidentSum from "../../models/incidentSum";
 import Summary from "../../models/Summary";
 
-export const selectCity = (city: City) => {
+export const selectCity = (city: City | undefined) => {
   return {
     type: ActionType.FETCH_CITY,
     payload: city,
