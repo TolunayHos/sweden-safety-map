@@ -1,46 +1,85 @@
-# Getting Started with Create React App
+Sweden safety map is an interactive map marking all criminal incidents that took place in all over Sweden as of January 2022. 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![Architecture diagram](stockholmsafetymap.png)
 
-## Available Scripts
 
-In the project directory, you can run:
+The original source of data is Polisen API. Since the data provided by the Polised API contains only last 500 incidents of all types reported by the Swedish police, I had to actively fetch new incidents to build up the state. I've created a Node.js server with implemented scheduler for calling the Polisen API every day at 18:00 and MongoDB integration for storing data. My backend server is responsible for the data manipulation which includes filtering out non-criminal types of incidents and creating summaries.
 
-### `npm start`
+```javascript
+export default axios.create({
+  baseURL: "https://sleepy-thicket-06800.herokuapp.com",
+});
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Please leaf through the backend code as it contains important fundamental logic for the county summaries and incident cherry-picking. (linktobackendsourcecode)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+ 
+ The front-end is built using React and Typescript. Leaflet library is used for map visualisation. Redux (Thunk) is used for state management where data is wired up to Map components using a custom hook.
 
-### `npm test`
+ ```javascript
+  const city = useTypedSelector((state) => state.citySelector);
+  
+  const incidentsRedux = useTypedSelector(
+    (state) => state.incidentsList.incidents
+  );
+  ```
+ 
+ Map folder includes the Map.tsx where I initiate the Leaflet map and mark the incidents. MapSide.tsx implements a collapsable side menu where users are able to select a county and see county stats. CountyStats.tsx is responsible for rendering the stats and DropdownMenu.tsx is the county selection component.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+It's important to note that Marker locations do not precisely show where the incident took place. Polisen tends to report incidents on a single gps coordinates on each municipal area for every incident occured in that area. The reason why you see them scattered despite the same reported coordinates is because I make small changes on reported latitude and longitude towards different directions to prevent overlapping on the map. This is also the reason why markers are prone to cluster in a narrow circle. See the logic below.
 
-### `npm run build`
+```javascript
+ const preventOverlap = (position: LatLngTuple) => {
+    const randomLat = Math.random() / 160;
+    const randomLng = Math.random() / 100;
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    const lat = position[0] + randomLat;
+    const lng = position[1] - randomLng;
+    const newPosition = [lat, lng];
+    return newPosition as LatLngTuple;
+    };
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+     <Marker
+       position={preventOverlap(incident.coords)}
+        icon={
+        new Icon({
+        iconUrl: markerIconPng,
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        })}
+       >
+ 
+  
+  ```
+  
+  GetIncidents action is called to populate the incidentsList state in the Map.tsx
+  
+  ```javascript
+   const { getIncidents } = useActions();
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+   useEffect(() => {
+    getIncidents();
+    setIncidents(incidentsRedux);
+  }, [incidentsRedux.length]);
+  ```
+  
+  GetIncidents action also returns (incident) summary which is used in CountyStats.tsx
 
-### `npm run eject`
+ ```javascript
+ const incidentsSumRedux = useTypedSelector(
+    (state) => state.incidentsList.summary
+  );
+ ```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+The (incident) summary matches with the selected county
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```javascript
+ const getDetailsOnCity = (city: string) => {
+    return incidentsSumRedux.filter(
+      (incident: any) => incident.city === city && incident
+    );
+  };
+  ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+  
