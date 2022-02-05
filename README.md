@@ -2,7 +2,7 @@ Sweden safety map is an interactive map marking all criminal incidents that took
 
 ![Architecture diagram](MapArchitecture.png)
 
-The original source of data is Polisen API. Since the data provided by the Polised API contains only last 500 incidents of all types reported by the Swedish police, I had to actively fetch new incidents to build up the state. I've created a Node.js server with implemented scheduler for calling the Polisen API every day at 18:00 and MongoDB integration for storing data. My backend server is responsible for the data manipulation which includes filtering out non-criminal types of incidents and creating summaries.
+The original source of the data is Polisen API. Since the data provided by the Polised API contains only last 500 incidents of all types reported by the Swedish police, I had to actively fetch new incidents to build up the state. I've created a Node.js server with implemented scheduler for calling the Polisen API every day at 18:00 and MongoDB integration for storing data. My backend server is responsible for the data manipulation which includes filtering out non-criminal nature incidents and creating summaries.
 
 ```javascript
 export default axios.create({
@@ -71,12 +71,4 @@ const incidentsSumRedux = useTypedSelector(
 );
 ```
 
-The code below is responsible for matching the (incident) summary with the selected county:
-
-```javascript
-const getDetailsOnCity = (city: string) => {
-  return incidentsSumRedux.filter(
-    (incident: any) => incident.city === city && incident
-  );
-};
-```
+If you have any questions, you can find my social links [here](https://www.tolunay.dev/)

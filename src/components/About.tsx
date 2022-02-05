@@ -38,6 +38,16 @@ const About = () => {
         about me from <a href="https://www.tolunay.dev/"> here. </a>
         <br></br>
         <br></br>
+        For more technical information, please have a look at{" "}
+        <a href="https://github.com/TolunayHos/sweden-safety-map">
+          Frontend source code
+        </a>{" "}
+        and{" "}
+        <a href="https://github.com/TolunayHos/sweden-safety-backend">
+          Backend source code
+        </a>
+        <br></br>
+        <br></br>
         <span className="overflowBig">
           The application is in constant development process and new features
           will be implemented in accordance with the wishes of the users.
