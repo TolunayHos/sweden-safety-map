@@ -45,7 +45,7 @@ const Mapside = () => {
       {section === "Overview" ? (
         <div className="container">
           <h3>Choose a county:</h3>
-          {collapse === false ? <CityDropdown /> : ""}
+          {<CityDropdown />}
           <CountyStats />
           <div>
             <div className="toggleInfo" onClick={handleCollapse}>
