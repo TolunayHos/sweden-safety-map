@@ -44,7 +44,7 @@ const About = () => {
         <a href="https://github.com/TolunayHos/sweden-safety-backend">
           Backend source code
         </a>
-        <br></br>
+        .<br></br>
         <br></br>
         <span className="overflowBig">
           The application is in constant development process and new features
