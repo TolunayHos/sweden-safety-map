@@ -45,10 +45,10 @@
     .LastReportedPageWrapper {
       i {
         cursor: pointer;
-
         span {
-          font-size: 1.7rem;
-          font-weight: 700;
+          font-size: 1.2rem;
+          margin-left: 0.3rem;
+          font-weight: 900;
         }
       }
       .inputAreaContainer {
@@ -72,7 +72,7 @@
           }
           button {
             border: none;
-            color: inherit;
+            -webkit-tap-highlight-color: transparent;
             i {
               cursor: pointer;
             }
