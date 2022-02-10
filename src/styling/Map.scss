@@ -1,5 +1,7 @@
 @import "../styling/mixins.scss";
 
+$width: calc(100% - 40rem);
+
 .LeafletMap {
   background-color: red;
   width: 100%;
@@ -8,6 +10,35 @@
 
 .LeafletWrapper {
   display: flex;
+  .fullScreenOverlay {
+    height: 100%;
+    width: 100%;
+    background-color: rgba(179, 172, 172, 0.3);
+    position: absolute;
+    left: 0%;
+
+    .fetchingOverlay {
+      position: absolute;
+      left: 0%;
+      height: 100%;
+      width: $width;
+      z-index: 1;
+      background-color: rgba(179, 172, 172, 0.3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      @include for-phone-only {
+        width: 100%;
+        @include for-small-phone {
+          width: 100%;
+        }
+      }
+      h4 {
+        color: #1d3557;
+      }
+    }
+  }
 }
 
 .leaflet-container {

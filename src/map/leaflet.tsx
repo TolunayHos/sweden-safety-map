@@ -8,6 +8,7 @@ import { Icon } from "leaflet";
 import Mapside from "../components/Mapside";
 import { useActions } from "../hooks/useActions";
 import { useTypedSelector } from "../hooks/useTypedSelector";
+import { TailSpin } from "react-loader-spinner";
 
 export type Incident = {
   description: string;
@@ -86,6 +87,15 @@ const LeafletMap: React.FC = () => {
           })}
         </MapContainer>
       </div>
+      {incidents.length === 0 && (
+        <div className="fullScreenOverlay">
+          <div className="fetchingOverlay">
+            <TailSpin color="#f95738" height={80} width={80} />
+            <h4>Fetching the data</h4>
+          </div>
+        </div>
+      )}
+
       <div className="mapside">
         <Mapside />
       </div>
