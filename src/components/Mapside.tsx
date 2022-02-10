@@ -3,10 +3,12 @@ import "../styling/Mapside.scss";
 import CityDropdown from "./CityDropdown";
 import About from "./About";
 import CountyStats from "./CountyStats";
+import LastReportedPage from "./LastReportedPage";
 
 const Mapside = () => {
   const [collapse, setCollapse] = useState(false);
   const [section, setSection] = useState("Overview");
+  const [expandLastReported, setExpandLastReported] = useState(false);
 
   const handleCollapse = () => {
     collapse === false ? setCollapse(true) : setCollapse(false);
@@ -14,6 +16,10 @@ const Mapside = () => {
 
   const handleSectionChange = (x: string, y: string) => {
     section === x && setSection(y);
+  };
+
+  const handleExpand = (val: boolean) => {
+    setExpandLastReported(val);
   };
 
   return (
@@ -44,9 +50,20 @@ const Mapside = () => {
       </div>
       {section === "Overview" ? (
         <div className="container">
-          <h3>Choose a county:</h3>
-          {<CityDropdown />}
-          <CountyStats />
+          {expandLastReported === false && (
+            <div>
+              {" "}
+              <h3>Choose a county:</h3>
+              {<CityDropdown />}{" "}
+            </div>
+          )}
+
+          {expandLastReported === false ? (
+            <CountyStats handleExpand={handleExpand} />
+          ) : (
+            <LastReportedPage handleExpand={handleExpand} />
+          )}
+
           <div>
             <div className="toggleInfo" onClick={handleCollapse}>
               <div className="toggleArea">

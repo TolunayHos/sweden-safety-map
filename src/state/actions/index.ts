@@ -24,7 +24,6 @@ export const getIncidents = () => {
       },
     })
       .then((response) => {
-        console.log(response);
         const data = response.data.incidents;
         let incidentMarkers: Incident[] = [];
         for (let i = 0; i < data.length; i++) {

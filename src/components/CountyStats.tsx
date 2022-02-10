@@ -3,7 +3,7 @@ import { useTypedSelector } from "../hooks/useTypedSelector";
 import Summary from "../models/Summary";
 import { Circles, Rings } from "react-loader-spinner";
 
-const CountyStats = () => {
+const CountyStats = (props: any) => {
   const [details, setDetails] = useState<Summary[]>([]);
   const city = useTypedSelector((state) => state.citySelector);
   const incidentsSumRedux = useTypedSelector(
@@ -22,8 +22,6 @@ const CountyStats = () => {
     } else if (details.length < 0) {
     }
   }, [city.name, incidentsSumRedux.length]);
-
-  console.log(details);
 
   return (
     <div className="CountyStats">
@@ -64,23 +62,31 @@ const CountyStats = () => {
           <h4>{details[0].incidentsPer}</h4>
         </div>
       )}
-      <h3>Last reported incidents</h3>
-      {details.length === 0 ? (
-        <Rings color="#f95738" height={40} width={40} />
-      ) : (
-        details[0].lastReported
-          .slice(0)
-          .reverse()
-          .map((report, i) => (
-            <div className="LastReported">
-              <h5 className="LastReportedDescription">
-                {" "}
-                <i className="exclamation circle icon"></i> {report.name}
-              </h5>
-              <p>{report.summary}</p>
-            </div>
-          ))
-      )}
+      <h3>
+        Last reported incidents{" "}
+        <span className="more" onClick={() => props.handleExpand(true)}>
+          {" "}
+          {"[See All..]"}
+        </span>{" "}
+      </h3>
+      <div className="LastReportedContainer">
+        {details.length === 0 ? (
+          <Rings color="#f95738" height={40} width={40} />
+        ) : (
+          details[0].lastReported
+            .slice(0)
+            .reverse()
+            .map((report, i) => (
+              <div className="LastReported">
+                <h5 className="LastReportedDescription">
+                  {" "}
+                  <i className="exclamation circle icon"></i> {report.name}
+                </h5>
+                <p>{report.summary}</p>
+              </div>
+            ))
+        )}
+      </div>
     </div>
   );
 };
