@@ -24,8 +24,6 @@ const LastReportedPage = (props: any) => {
           .toLowerCase()
           .includes(keyword.toLowerCase())
       ) {
-        console.log("here I am" + incidentsRedux[i].description.toLowerCase());
-
         indexedIncidents.push(incidentsRedux[i]);
       }
     }
