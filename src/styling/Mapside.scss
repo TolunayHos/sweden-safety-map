@@ -72,9 +72,11 @@
           }
           button {
             border: none;
+            background-color: transparent;
             -webkit-tap-highlight-color: transparent;
             i {
               cursor: pointer;
+              background-color: transparent;
             }
           }
         }
