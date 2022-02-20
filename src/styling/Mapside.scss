@@ -9,9 +9,10 @@
   width: 40rem;
   z-index: 1;
   right: 0%;
-  min-height: 100vh;
+  min-height: 102vh;
   backdrop-filter: blur(5px);
   transition: 0.35s all ease-in;
+
   @include for-phone-only {
     width: 84%;
     max-height: 100vh;
@@ -131,7 +132,7 @@
       cursor: pointer;
     }
     .LastReportedContainer {
-      max-height: 70vh;
+      max-height: 60vh;
       overflow-y: scroll;
       .LastReported {
         margin-bottom: 0.1rem;
