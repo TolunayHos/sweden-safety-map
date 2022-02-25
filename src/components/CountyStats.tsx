@@ -74,7 +74,7 @@ const CountyStats = (props: any) => {
           <Rings color="#f95738" height={40} width={40} />
         ) : (
           details[0].lastReported
-            .slice(0)
+            .slice(0, 4)
             .reverse()
             .map((report, i) => (
               <div className="LastReported">
