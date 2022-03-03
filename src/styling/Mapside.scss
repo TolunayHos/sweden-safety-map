@@ -1,12 +1,11 @@
 @import "../styling/mixins.scss";
 
 .MapsideWrapper {
-  background-color: rgb(241, 250, 238, 0.9);
-  color: #4c2e05;
-
-  border-left: solid #a8dadc 0.5px;
+  background-color: rgb(255, 255, 255, 0.8);
+  color: #333333;
+  box-shadow: -2px 0px 15px 1px #aaaaaa;
   position: absolute;
-  width: 40rem;
+  width: 30rem;
   z-index: 1;
   right: 0%;
   min-height: 102vh;
@@ -23,11 +22,11 @@
 
   .MapsideHeader {
     display: flex;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #e8eaed;
     height: 3rem;
     transition: all 0.6s ease-in;
     i {
-      color: orange;
+      color: #f43;
     }
     .headerelement {
       display: flex;
@@ -47,6 +46,7 @@
       i {
         cursor: pointer;
         span {
+          color: #333333;
           font-size: 1.2rem;
           margin-left: 0.3rem;
           font-weight: 900;
@@ -83,12 +83,20 @@
         }
       }
     }
+    .LastReportedContainer {
+      max-height: 60vh;
+      overflow-y: scroll;
+      .LastReported {
+        margin-bottom: 0.1rem;
+        background-color: rgba(128, 125, 124, 0.04);
+        color: #1d3557;
+        padding-top: 0.3rem;
+        padding-bottom: 0.3rem;
 
-    .more {
-      color: #f95738;
-      font-size: 0.9rem;
-      font-style: italic;
-      cursor: pointer;
+        .LastReportedDescription {
+          margin-bottom: 0rem;
+        }
+      }
     }
 
     .exclamation {
@@ -118,75 +126,27 @@
       color: #f95738;
     }
 
-    .numberedlist {
-      h4 {
-        color: #1d3557;
-        font-weight: 900;
-      }
-    }
-
-    .moreinfo {
-      margin-top: 0rem;
-      color: #f95738;
-      border-style: none;
-      cursor: pointer;
-    }
-    .LastReportedContainer {
-      max-height: 60vh;
-      overflow-y: scroll;
-      .LastReported {
-        margin-bottom: 0.1rem;
-        background-color: rgba(249, 87, 56, 0.04);
-        color: #1d3557;
-        padding-top: 0.3rem;
-        padding-bottom: 0.3rem;
-
-        .LastReportedDescription {
-          margin-bottom: 0rem;
-        }
-      }
-    }
-
-    .PerPeople {
-      background-color: #f95738;
-      color: white;
-      width: max-content;
-      padding: 0.3rem 0.6rem 0.3rem 0.5rem;
-    }
-
-    h2,
-    h3 {
-      opacity: 1;
-      transition: all 0.35s ease-in;
-      margin-bottom: 0.2rem;
-      margin-top: 0.2rem;
-
-      &:first-child {
-        margin-bottom: 0.3rem;
-        margin-left: 0.2rem;
-      }
-    }
-    p {
-      opacity: 1;
-      transition: all 0.13s ease-in;
-    }
-
     .toggleInfo {
       display: flex;
-      height: 5rem;
-      width: 5rem;
+      height: 4.5rem;
+      width: 2.2rem;
       border-radius: 45px;
       background-color: white;
       justify-content: center;
       align-items: center;
       position: absolute;
-      left: -4.4rem;
+      left: -2rem;
       top: 49vh;
-      background-color: rgb(249, 87, 56, 0.7);
+      // background-color: rgb(249, 87, 56, 0.7);
+      background-color: #ffffff;
+      border-radius: 8px 0px 0px 8px;
+      box-shadow: 0 1px 2px rgb(60 64 67 / 30%),
+        0 2px 6px 2px rgb(60 64 67 / 15%);
+      border: 0rem;
       cursor: pointer;
 
       .toggleArea {
-        color: white;
+        color: #c3c5c8;
       }
     }
   }
@@ -216,8 +176,9 @@
 }
 
 .active {
-  background-color: rgb(249, 87, 56, 0.7);
-  color: white;
+  color: #333333;
+  border-bottom: 1px solid #d2d4d5;
+  background-color: #ededed;
 }
 
 .hidden {

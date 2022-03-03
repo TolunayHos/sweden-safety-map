@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import Summary from "../models/Summary";
 import { Circles, Rings } from "react-loader-spinner";
+import "../styling/countyStats.scss";
 
 const CountyStats = (props: any) => {
   const [details, setDetails] = useState<Summary[]>([]);
@@ -29,14 +30,24 @@ const CountyStats = (props: any) => {
       {details.length === 0 ? (
         <Rings color="#f95738" height={40} width={40} />
       ) : (
-        details[0].incidentSum.map((incident, i) => (
-          <div className="numberedlist">
-            <h4>
-              {" "}
-              {i + 1}-{incident.incidentType} ({incident.numberOfIncidents}){" "}
-            </h4>
+        <div className="listBlockIncident">
+          <div className="blockIncident">
+            {details[0].incidentSum.slice(0, 3).map((incident, i) => (
+              <div className="numberedlist">
+                <div className="frequency">{incident.numberOfIncidents}</div>
+                <h4> {incident.incidentType} </h4>
+              </div>
+            ))}
           </div>
-        ))
+          <div className="blockIncident">
+            {details[0].incidentSum.slice(3, 5).map((incident, i) => (
+              <div className="numberedlist">
+                <div className="frequency">{incident.numberOfIncidents}</div>
+                <h4> {incident.incidentType}</h4>
+              </div>
+            ))}
+          </div>
+        </div>
       )}
 
       <h3>Top 5 incident reporting municipalities </h3>
@@ -44,14 +55,26 @@ const CountyStats = (props: any) => {
       {details.length === 0 ? (
         <Rings color="#f95738" height={40} width={40} />
       ) : (
-        details[0].topReportingCities.slice(0, 5).map((incident, i) => (
-          <div className="numberedlist">
-            <h4>
-              {" "}
-              {i + 1}-{incident.city} ({incident.numberOfIncidents}){" "}
-            </h4>
+        <div className="listBlockCity">
+          <div className="blockCity">
+            {details[0].topReportingCities.slice(0, 3).map((incident, i) => (
+              <div className="numberedlistFirst">
+                <h4>
+                  {incident.city} x{incident.numberOfIncidents}
+                </h4>
+              </div>
+            ))}
           </div>
-        ))
+          <div className="blockCity">
+            {details[0].topReportingCities.slice(3, 5).map((incident, i) => (
+              <div className="numberedlistSecond">
+                <h4>
+                  {incident.city} x{incident.numberOfIncidents}
+                </h4>
+              </div>
+            ))}
+          </div>
+        </div>
       )}
 
       <h3>Number of incidents per 100.000 people</h3>
@@ -66,7 +89,7 @@ const CountyStats = (props: any) => {
         Last reported incidents{" "}
         <span className="more" onClick={() => props.handleExpand(true)}>
           {" "}
-          {"[See All..]"}
+          {"[SEE ALL]"}
         </span>{" "}
       </h3>
       <div className="LastReportedContainer">
@@ -74,7 +97,7 @@ const CountyStats = (props: any) => {
           <Rings color="#f95738" height={40} width={40} />
         ) : (
           details[0].lastReported
-            .slice(0, 4)
+            .slice(0, 3)
             .reverse()
             .map((report, i) => (
               <div className="LastReported">

@@ -32,9 +32,9 @@ const LastReportedPage = (props: any) => {
   return (
     <div className="LastReportedPageWrapper">
       <i
-        className="chevron circle left icon "
+        className="chevron circle left icon  "
         onClick={() => props.handleExpand(false)}
-        style={{ color: "#f95738", fontSize: "1.1rem" }}
+        style={{ color: "#555555", fontSize: "1.1rem" }}
       >
         <span>BACK</span>
       </i>

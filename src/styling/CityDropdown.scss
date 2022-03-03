@@ -2,18 +2,27 @@
   z-index: 3;
   width: 100%;
   display: flex;
-  border-bottom: 2px solid rgba(65, 65, 65, 0.2);
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 9.3rem;
+    width: 69%;
+    left: 10%;
+    border-top: 2px solid #e8eaed;
+    margin-bottom: 1rem;
+  }
 
   select {
     padding: 0.5rem;
     border-radius: 7px;
-    border: solid 3px rgba(245, 152, 133, 0.7);
+    border: solid 2.5px #999999;
     background-color: inherit;
     width: 12rem;
     cursor: pointer;
     margin-bottom: 1rem;
     &:hover {
-      border: solid 3px rgb(249, 87, 56, 0.7);
+      border: solid 2.5px #666666;
     }
   }
 }

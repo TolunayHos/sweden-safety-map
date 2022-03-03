@@ -53,7 +53,7 @@ const Mapside = () => {
           {expandLastReported === false && (
             <div>
               {" "}
-              <h3>Choose a county:</h3>
+              <h3>Select a county:</h3>
               {<CityDropdown />}{" "}
             </div>
           )}
@@ -70,8 +70,8 @@ const Mapside = () => {
                 <i
                   className={
                     collapse === false
-                      ? "angle double right icon huge"
-                      : "angle double left icon huge"
+                      ? "angle double right icon large "
+                      : "angle double left icon large"
                   }
                 ></i>
               </div>
@@ -85,8 +85,8 @@ const Mapside = () => {
               <i
                 className={
                   collapse === false
-                    ? "angle double right icon huge"
-                    : "angle double left icon huge"
+                    ? "angle double right icon large"
+                    : "angle double left icon large"
                 }
               ></i>
             </div>
