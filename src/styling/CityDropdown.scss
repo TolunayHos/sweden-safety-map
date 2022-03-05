@@ -2,11 +2,13 @@
   z-index: 3;
   width: 100%;
   display: flex;
+  flex-direction: column;
+
   &::before {
     content: "";
     display: block;
     position: absolute;
-    top: 9.3rem;
+    top: 10rem;
     width: 69%;
     left: 10%;
     border-top: 2px solid #e8eaed;

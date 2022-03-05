@@ -43,9 +43,10 @@ const LastReportedPage = (props: any) => {
         <form onSubmit={handleSubmit}>
           <div className="inputArea">
             <input
-              placeholder="Kista"
+              placeholder="i.e Östermalm, Kista"
               value={value}
               onChange={(e) => setValue(e.target.value)}
+              autoFocus
             />
 
             <button type="submit" onClick={() => searchIncidents(value)}>

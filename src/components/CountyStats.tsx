@@ -85,13 +85,7 @@ const CountyStats = (props: any) => {
           <h4>{details[0].incidentsPer}</h4>
         </div>
       )}
-      <h3>
-        Last reported incidents{" "}
-        <span className="more" onClick={() => props.handleExpand(true)}>
-          {" "}
-          {"[SEE ALL]"}
-        </span>{" "}
-      </h3>
+      <h3>Last reported incidents </h3>
       <div className="LastReportedContainer">
         {details.length === 0 ? (
           <Rings color="#f95738" height={40} width={40} />

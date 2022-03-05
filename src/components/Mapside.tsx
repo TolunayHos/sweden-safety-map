@@ -51,10 +51,21 @@ const Mapside = () => {
       {section === "Overview" ? (
         <div className="container">
           {expandLastReported === false && (
-            <div>
+            <div className="selection">
               {" "}
-              <h3>Select a county:</h3>
-              {<CityDropdown />}{" "}
+              <div className="countyArea">
+                <h3>Select a county:</h3>
+                {<CityDropdown />}{" "}
+              </div>
+              <div className="searchArea">
+                <h3>Search a keyword:</h3>
+                <div>
+                  <input
+                    placeholder="Keyword (i.e Östermalm)"
+                    onClick={() => handleExpand(true)}
+                  />
+                </div>
+              </div>
             </div>
           )}
 
