@@ -1,3 +1,5 @@
+@import "../styling/base.scss";
+
 .CountyStats {
   .listBlockIncident {
     display: flex;
@@ -19,14 +21,14 @@
           height: 2rem;
           justify-content: center;
           align-items: center;
-          background-color: #555555;
+          background-color: $Circle-Gray;
           color: white;
           border-radius: 100%;
           margin-right: 0.3rem;
         }
         h4 {
           margin-top: 0rem;
-          color: #444444;
+          color: $Text-Color;
           font-weight: 900;
         }
       }
@@ -47,10 +49,10 @@
         margin-top: 0.5rem;
         box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.16);
         border-radius: 5px;
-        background-color: #0047ab;
+        background-color: $Blue;
         color: white;
         &:first-of-type {
-          background-color: #000f89;
+          background-color: $Danger-Blue;
         }
       }
       .numberedlistSecond {
@@ -58,10 +60,10 @@
         margin-top: 0.5rem;
         box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.16);
         border-radius: 5px;
-        background-color: #7cb9e8;
+        background-color: $Lighter-Blue;
         color: white;
         &:first-of-type {
-          background-color: #0070bb;
+          background-color: $Light-Blue;
         }
       }
     }
@@ -70,14 +72,14 @@
 
 h3 {
   .more {
-    color: #f43;
+    color: $Orange;
     font-size: 0.9rem;
     cursor: pointer;
   }
 }
 
 .PerPeople {
-  background-color: #555555;
+  background-color: $Circle-Gray;
   color: white;
   width: max-content;
   padding: 0.3rem 0.6rem 0.3rem 0.5rem;

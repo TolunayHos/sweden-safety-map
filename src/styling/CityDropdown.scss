@@ -1,3 +1,5 @@
+@import "../styling/base.scss";
+
 .DropdownWrapper {
   z-index: 3;
   width: 100%;
@@ -11,14 +13,14 @@
     top: 10rem;
     width: 69%;
     left: 10%;
-    border-top: 2px solid #e8eaed;
+    border-top: $Seperating-Border;
     margin-bottom: 1rem;
   }
 
   select {
     padding: 0.5rem;
     border-radius: 7px;
-    border: solid 2.5px #999999;
+    border: $Box-Border;
     background-color: inherit;
     width: 12rem;
     cursor: pointer;

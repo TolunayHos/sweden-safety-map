@@ -91,7 +91,7 @@ const LeafletMap: React.FC = () => {
         <div className="fullScreenOverlay">
           <div className="fetchingOverlay">
             <TailSpin color="#f95738" height={80} width={80} />
-            <h4>Fetching the data</h4>
+            <h4>Fetching data...</h4>
           </div>
         </div>
       )}

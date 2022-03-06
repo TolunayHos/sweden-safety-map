@@ -1,8 +1,9 @@
 @import "../styling/mixins.scss";
+@import "../styling/base.scss";
 
 .MapsideWrapper {
   background-color: rgb(255, 255, 255, 0.8);
-  color: #333333;
+  color: $Header-Color;
   box-shadow: -2px 0px 15px 1px #aaaaaa;
   position: absolute;
   width: 30rem;
@@ -22,11 +23,11 @@
 
   .MapsideHeader {
     display: flex;
-    border-bottom: 1px solid #e8eaed;
+    border-bottom: $Seperating-Border;
     height: 3rem;
     transition: all 0.6s ease-in;
     i {
-      color: #f43;
+      color: $Orange;
     }
     .headerelement {
       display: flex;
@@ -46,11 +47,29 @@
       flex-direction: row;
       margin-bottom: 0.7rem;
       .countyArea {
-        border-right: 2px solid #e8eaed;
+        border-right: $Seperating-Border;
         margin-right: 1rem;
         padding-right: 2.2rem;
+        @include for-phone-only {
+          margin-right: 1rem;
+          padding-right: 1rem;
+          @include for-small-phone {
+          }
+        }
       }
       .searchArea {
+        h3 {
+          @include for-phone-only {
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            margin-top: 0.3rem;
+            @include for-small-phone {
+              font-size: 0.8rem;
+              margin-bottom: 0.5rem;
+              margin-top: 0.3rem;
+            }
+          }
+        }
         input {
           padding: 0.7rem;
           border-radius: 7px;
@@ -58,8 +77,13 @@
           width: 12rem;
           cursor: pointer;
           margin-bottom: 1rem;
-          border: solid 2.5px #999999;
+          border: $Box-Border;
           font-size: 0.8rem;
+          @include for-phone-only {
+            width: 7rem;
+            @include for-small-phone {
+            }
+          }
         }
       }
     }
@@ -68,7 +92,7 @@
       i {
         cursor: pointer;
         span {
-          color: #333333;
+          color: $Header-Color;
           font-size: 1.2rem;
           margin-left: 0.3rem;
           font-weight: 900;
@@ -111,7 +135,7 @@
       .LastReported {
         margin-bottom: 0.1rem;
         background-color: rgba(128, 125, 124, 0.04);
-        color: #1d3557;
+        color: $Dark-Blue;
         padding-top: 0.3rem;
         padding-bottom: 0.3rem;
 
@@ -124,7 +148,7 @@
     .exclamation {
       font-weight: 700;
       i {
-        color: #f43;
+        color: $Orange;
       }
     }
 
@@ -145,7 +169,7 @@
 
     a {
       font-weight: 900;
-      color: #f43;
+      color: $Orange;
     }
 
     .toggleInfo {
@@ -168,7 +192,7 @@
       cursor: pointer;
 
       .toggleArea {
-        color: #c3c5c8;
+        color: $Light-Gray;
       }
     }
   }
@@ -198,7 +222,7 @@
 }
 
 .active {
-  color: #333333;
+  color: $Header-Color;
   border-bottom: 1px solid #d2d4d5;
   background-color: #ededed;
 }

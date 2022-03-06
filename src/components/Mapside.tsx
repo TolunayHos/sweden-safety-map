@@ -61,7 +61,7 @@ const Mapside = () => {
                 <h3>Search a keyword:</h3>
                 <div>
                   <input
-                    placeholder="Keyword (i.e Östermalm)"
+                    placeholder="(i.e Östermalm)"
                     onClick={() => handleExpand(true)}
                   />
                 </div>
