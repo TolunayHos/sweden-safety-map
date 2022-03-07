@@ -70,7 +70,7 @@ const Mapside = () => {
           )}
 
           {expandLastReported === false ? (
-            <CountyStats handleExpand={handleExpand} />
+            <CountyStats />
           ) : (
             <LastReportedPage handleExpand={handleExpand} />
           )}

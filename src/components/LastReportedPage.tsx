@@ -2,7 +2,11 @@ import { useEffect, useState } from "react";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import { Incident } from "../map/leaflet";
 
-const LastReportedPage = (props: any) => {
+interface LastReportedProps {
+  handleExpand: (val: boolean) => void;
+}
+
+const LastReportedPage = (props: LastReportedProps) => {
   const [search, setSearch] = useState("");
   const [value, setValue] = useState("");
   const [indexedIncidents, setindexedIncidents] = useState([] as Incident[]);

@@ -4,7 +4,7 @@ import Summary from "../models/Summary";
 import { Circles, Rings } from "react-loader-spinner";
 import "../styling/countyStats.scss";
 
-const CountyStats = (props: any) => {
+const CountyStats = () => {
   const [details, setDetails] = useState<Summary[]>([]);
   const city = useTypedSelector((state) => state.citySelector);
   const incidentsSumRedux = useTypedSelector(
