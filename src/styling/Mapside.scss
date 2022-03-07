@@ -205,9 +205,48 @@
   transition: all 0.35s ease-in;
   border-left: none;
 
+  @include for-phone-only {
+    width: 0rem;
+    transition: all 0.2s ease-in;
+    @include for-small-phone {
+    }
+  }
+
+  .countyArea {
+    @include for-phone-only {
+      display: none;
+
+      @include for-small-phone {
+        display: none;
+      }
+    }
+  }
+  .searchArea {
+    @include for-phone-only {
+      display: none;
+      @include for-small-phone {
+        display: none;
+      }
+    }
+  }
+  .countyStats {
+    @include for-phone-only {
+      display: none;
+      @include for-small-phone {
+        display: none;
+      }
+    }
+  }
+
   .MapsideHeader {
     opacity: 0;
     transition: all 0.4s ease-in;
+    @include for-phone-only {
+      display: none;
+      @include for-small-phone {
+        display: none;
+      }
+    }
   }
   .container {
     h2,
