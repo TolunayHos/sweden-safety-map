@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import Summary from "../models/Summary";
-import { Circles, Rings } from "react-loader-spinner";
+import { Circles, Rings, TailSpin } from "react-loader-spinner";
 import "../styling/countyStats.scss";
 
 const CountyStats = () => {
@@ -28,7 +28,7 @@ const CountyStats = () => {
     <div className="CountyStats">
       <h3> Common incidents in {city.name} county </h3>
       {details.length === 0 ? (
-        <Rings color="#f95738" height={40} width={40} />
+        <TailSpin color="#f95738" height={40} width={40} />
       ) : (
         <div className="listBlockIncident">
           <div className="blockIncident">
@@ -53,7 +53,7 @@ const CountyStats = () => {
       <h3>Top 5 incident reporting municipalities </h3>
 
       {details.length === 0 ? (
-        <Rings color="#f95738" height={40} width={40} />
+        <TailSpin color="#f95738" height={40} width={40} />
       ) : (
         <div className="listBlockCity">
           <div className="blockCity">
@@ -79,7 +79,7 @@ const CountyStats = () => {
 
       <h3>Number of incidents per 100.000 people</h3>
       {details.length === 0 ? (
-        <Rings color="#f95738" height={40} width={40} />
+        <TailSpin color="#f95738" height={40} width={40} />
       ) : (
         <div className="PerPeople">
           <h4>{details[0].incidentsPer}</h4>
@@ -88,7 +88,7 @@ const CountyStats = () => {
       <h3>Last reported incidents </h3>
       <div className="LastReportedContainer">
         {details.length === 0 ? (
-          <Rings color="#f95738" height={40} width={40} />
+          <TailSpin color="#f95738" height={40} width={40} />
         ) : (
           details[0].lastReported
             .slice(0, 3)
