@@ -108,93 +108,102 @@
           margin-bottom: 1rem;
           padding: 0.3rem;
           border-radius: 7px;
+        }
+        .inputAreaFailed {
+          margin-top: 1rem;
+          background-color: rgba(250, 3, 3, 0.042);
 
-          input {
-            border: none;
-            padding: 0.5rem;
-            background-color: transparent;
-            margin-right: 0.3rem;
-            &:focus {
-              outline: none;
-            }
+          width: fit-content;
+          margin-bottom: 1rem;
+          padding: 0.3rem;
+          border-radius: 7px;
+          animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+        }
+
+        input {
+          border: none;
+          padding: 0.5rem;
+          background-color: transparent;
+          margin-right: 0.3rem;
+          &:focus {
+            outline: none;
           }
-          button {
-            border: none;
+        }
+        button {
+          border: none;
+          background-color: transparent;
+          -webkit-tap-highlight-color: transparent;
+          i {
+            cursor: pointer;
             background-color: transparent;
-            -webkit-tap-highlight-color: transparent;
-            i {
-              cursor: pointer;
-              background-color: transparent;
-            }
           }
         }
       }
     }
-    .LastReportedContainer {
-      max-height: 60vh;
-      overflow-y: scroll;
-      .LastReported {
-        margin-bottom: 0.1rem;
-        background-color: rgba(128, 125, 124, 0.04);
-        color: $Dark-Blue;
-        padding-top: 0.3rem;
-        padding-bottom: 0.3rem;
+  }
+  .LastReportedContainer {
+    max-height: 60vh;
+    overflow-y: scroll;
+    .LastReported {
+      margin-bottom: 0.1rem;
+      background-color: rgba(128, 125, 124, 0.04);
+      color: $Dark-Blue;
+      padding-top: 0.3rem;
+      padding-bottom: 0.3rem;
 
-        .LastReportedDescription {
-          margin-bottom: 0rem;
-        }
+      .LastReportedDescription {
+        margin-bottom: 0rem;
       }
     }
+  }
 
-    .exclamation {
-      font-weight: 700;
-      i {
-        color: $Orange;
-      }
-    }
-
-    .overflowSmall {
-      @include for-small-phone {
-        display: none;
-      }
-    }
-
-    .overflowBig {
-      @include for-phone-only {
-        display: none;
-      }
-      @include for-small-phone {
-        display: none;
-      }
-    }
-
-    a {
-      font-weight: 900;
+  .exclamation {
+    font-weight: 700;
+    i {
       color: $Orange;
     }
+  }
 
-    .toggleInfo {
-      display: flex;
-      height: 4.5rem;
-      width: 2.2rem;
-      border-radius: 45px;
-      background-color: white;
-      justify-content: center;
-      align-items: center;
-      position: absolute;
-      left: -2rem;
-      top: 49vh;
-      // background-color: rgb(249, 87, 56, 0.7);
-      background-color: #ffffff;
-      border-radius: 8px 0px 0px 8px;
-      box-shadow: 0 1px 2px rgb(60 64 67 / 30%),
-        0 2px 6px 2px rgb(60 64 67 / 15%);
-      border: 0rem;
-      cursor: pointer;
+  .overflowSmall {
+    @include for-small-phone {
+      display: none;
+    }
+  }
 
-      .toggleArea {
-        color: $Light-Gray;
-      }
+  .overflowBig {
+    @include for-phone-only {
+      display: none;
+    }
+    @include for-small-phone {
+      display: none;
+    }
+  }
+
+  a {
+    font-weight: 900;
+    color: $Orange;
+  }
+
+  .toggleInfo {
+    display: flex;
+    height: 4.5rem;
+    width: 2.2rem;
+    border-radius: 45px;
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: -2rem;
+    top: 49vh;
+    // background-color: rgb(249, 87, 56, 0.7);
+    background-color: #ffffff;
+    border-radius: 8px 0px 0px 8px;
+    box-shadow: 0 1px 2px rgb(60 64 67 / 30%), 0 2px 6px 2px rgb(60 64 67 / 15%);
+    border: 0rem;
+    cursor: pointer;
+
+    .toggleArea {
+      color: $Light-Gray;
     }
   }
 }
@@ -269,4 +278,27 @@
 
 .hidden {
   display: none;
+}
+
+@keyframes shake {
+  10%,
+  90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  20%,
+  80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%,
+  60% {
+    transform: translate3d(4px, 0, 0);
+  }
 }

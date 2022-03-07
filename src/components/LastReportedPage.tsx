@@ -9,6 +9,7 @@ interface LastReportedProps {
 const LastReportedPage = (props: LastReportedProps) => {
   const [search, setSearch] = useState("");
   const [value, setValue] = useState("");
+  const [failed, setFailed] = useState(false);
   const [indexedIncidents, setindexedIncidents] = useState([] as Incident[]);
 
   const incidentsRedux = useTypedSelector(
@@ -18,6 +19,7 @@ const LastReportedPage = (props: LastReportedProps) => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     setSearch(value);
+    indexedIncidents.length > 0 ? setFailed(false) : setFailed(true);
   };
 
   const searchIncidents = (keyword: string) => {
@@ -45,7 +47,7 @@ const LastReportedPage = (props: LastReportedProps) => {
       <div className="inputAreaContainer">
         <h4>Search among all incidents based on keyword</h4>
         <form onSubmit={handleSubmit}>
-          <div className="inputArea">
+          <div className={failed === false ? "inputArea" : "inputAreaFailed"}>
             <input
               placeholder="i.e Östermalm, Kista"
               value={value}
