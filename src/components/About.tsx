@@ -2,9 +2,9 @@ const About = () => {
   return (
     <div>
       <p>
-        This is an interactive map marking all criminal incidents that took
-        place in all over Sweden as of January 2022. The map is updated with new
-        incidents everyday at 6 pm. <br></br>
+        This is an interactive map marking all criminal incidents that are
+        reported to the police in all over Sweden as of January 2022. The map is
+        updated with new incidents everyday at 6 pm. <br></br>
         <br></br>
         <span className="exclamation">
           <i className="exclamation triangle icon  "></i>
